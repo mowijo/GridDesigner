@@ -15,9 +15,9 @@ int main(int argc, char *argv[])
     g->Pt = 2;
     g->N = 3;
     g->Gw = 40;
-    g->Gh = 30;
+    g->Gh = 8;
+    g->T = 0.01;
     g->solve(g);
-    printf("Done\n");
     printf("A solved to %f\n", g->a);
     return 0;
 }

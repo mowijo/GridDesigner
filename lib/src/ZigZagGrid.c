@@ -6,34 +6,46 @@
 #define Pi 3.141592654
 #define RADIANS(v) ((v)*Pi/180)
 
-static void ZigZagGrid_solve(ZigZagGrid *this)
+static int ZigZagGrid_solve(ZigZagGrid *this)
 {
-    double currentLowGuess, currentHighGuess, currentGuess, Tww, Tih, Tiw, Tw, calculagedGw, delta;
+    double highestGuess, lowestGuess, guess, Tww, Tih, Tiw, Tw, calculagedGw, delta;
 
-    currentLowGuess = 1;
-    currentHighGuess = 89;
-    currentGuess = 79.2;
+    highestGuess = 90;
+    lowestGuess = 0;
 
-    Tww = this->Pt/sin(RADIANS(currentGuess));
-    Tih = this->Gh - 2 * this->Pt;
-    Tiw = (this->Gh - 2 * this->Pt)/tan(RADIANS(currentGuess))*2;
-    Tw =Tiw + 2 * Tww;
+    int step = 0;
+    int maximumSteps = 50;
+    int exceededMaximumSteps = 1;
+    while((step < maximumSteps))
+    {
+        guess = (highestGuess + lowestGuess) / 2;
+        Tww = this->Pt/sin(RADIANS(guess));
+        Tih = this->Gh - 2 * this->Pt;
+        Tiw = (this->Gh - 2 * this->Pt)/tan(RADIANS(guess))*2;
+        Tw =Tiw + 2 * Tww;
 
-    calculagedGw = this->N * Tw;
-    delta = calculagedGw - this->Gw;
+        calculagedGw = this->N * Tw;
+        delta = calculagedGw - this->Gw;
+        step++;
 
-    printf(" ------------------ \n");
-    printf("          Tww : %f\n", Tww);
-    printf("          Tih : %f\n", Tih);
-    printf("          Tiw : %f\n", Tiw);
-    printf("          Tw  : %f\n", Tw);
-    printf("          Tww : %f\n", Tww);
-    printf("Calculated Gw : %f\n", calculagedGw);
-    printf("        delta : %f\n", delta);
+        if(fabs(delta) <= this->T)
+        {
+            exceededMaximumSteps = 0;
+            break;
+        }
 
+        if(delta < 0)
+        {
+            highestGuess = guess;
+        }
+        else
+        {
+            lowestGuess = guess;
+        }
+    }
+    this->a = guess;
 
-
-    this->a = currentGuess;
+    return ! exceededMaximumSteps;
 }
 
 static void ZigZagGrid_destroy(ZigZagGrid *this)

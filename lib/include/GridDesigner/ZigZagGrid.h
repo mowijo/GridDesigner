@@ -3,8 +3,10 @@
 
 typedef struct ZigZagGrid
 {
-    // "Public" methods
-    void(*solve)(struct ZigZagGrid *this);
+    /* "Public" methods */
+
+    /* Returns 1 if the constraings could be met within the allowed seach time. 0 if not. */
+    int(*solve)(struct ZigZagGrid *this);
     void(*destroy)(struct ZigZagGrid *this);
 
     // Member variables
@@ -13,6 +15,7 @@ typedef struct ZigZagGrid
     double Pt;
     double Gh;
     double Gw;
+    double T;
     void(*progressCallBack)(int percentageCompletedSoFar);
 
 } ZigZagGrid;
