@@ -12,13 +12,12 @@ void handleProgressChanged(int progress)
 
 int main(int argc, char *argv[])
 {
-    double scale = 6    ;
     ZigZagGrid * g = new_ZigZagGrid();
 //    g->progressCallBack = &handleProgressChanged;
-    g->Pt = 2*scale;
-    g->N = 3;
-    g->Gw = 40*scale;
-    g->Gh = 8*scale;
+    g->Pt = 3;
+    g->N = 6;
+    g->Gw = 180;
+    g->Gh = 50;
     g->T = 0.01;
     g->solve(g);
 
@@ -27,6 +26,8 @@ int main(int argc, char *argv[])
     FILE *f = fopen("/tmp/grid.svg", "w");
     fprintf(f, "%s", svg);
     fclose(f);
+
+
 
     free(svg);
     g->destroy(g);
