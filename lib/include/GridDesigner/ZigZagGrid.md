@@ -1,5 +1,7 @@
 # ZZGrid
 
+TL;DR: To try this out, build the source and run `zzGridTest` and open `/tmp/out.svg` in your favourite SVG viewer.
+
 The Zig Zag-Grid, as known from railroad bridges, is defined by a few variables: Gw, Gh, Pt and N, as illustrated below, and a tolerance, T, the system need to be soved within. E.g. if units are in mm and T= 0.1, a match less than +/- 0.1mm for Gw is searched for.
 
 ```txt
