@@ -44,6 +44,11 @@ static int ZigZagGrid_solve(ZigZagGrid *this)
         }
     }
     this->a = guess;
+    this->Tw = Tw;
+    this->Tww = Tww;
+    this->Tiw = Tiw;
+    this->Tih = Tih;
+
 
     return ! exceededMaximumSteps;
 }
@@ -54,13 +59,27 @@ static void ZigZagGrid_destroy(ZigZagGrid *this)
     this = NULL;
 }
 
-
+static void ZigZagGrid_printToStdOut(ZigZagGrid *zzg)
+{
+    printf("ZigZagGrid:\n");
+    printf("          a: %.2f\n", zzg->a);
+    printf("         Pt: %.2f\n", zzg->Pt);
+    printf("         Gh: %.2f\n", zzg->Gh);
+    printf("         Gw: %.2f\n", zzg->Gw);
+    printf("          T: %.2f\n", zzg->T);
+    printf("        --------------\n");
+    printf("         Tw: %.2f\n", zzg->Tw);
+    printf("        Tww: %.2f\n", zzg->Tww);
+    printf("        Tiw: %.2f\n", zzg->Tiw);
+    printf("        Tih: %.2f\n", zzg->Tih);
+    }
 
 static void ZigZagGrid_init(ZigZagGrid *zzg)
 {
 
     zzg->solve = &ZigZagGrid_solve;
     zzg->destroy = &ZigZagGrid_destroy;
+    zzg->printToStdOut = &ZigZagGrid_printToStdOut;
 
     zzg->a = 0;
     zzg->N = 0;
@@ -69,6 +88,8 @@ static void ZigZagGrid_init(ZigZagGrid *zzg)
     zzg->Gw = 0;
     zzg->progressCallBack = NULL;
 }
+
+
 
 ZigZagGrid *new_ZigZagGrid()
 {

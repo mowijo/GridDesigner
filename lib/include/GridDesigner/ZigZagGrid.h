@@ -8,7 +8,7 @@ typedef struct ZigZagGrid
     /* Returns 1 if the constraings could be met within the allowed seach time. 0 if not. */
     int(*solve)(struct ZigZagGrid *this);
     void(*destroy)(struct ZigZagGrid *this);
-
+    void(*printToStdOut)(struct ZigZagGrid *this);
     // Member variables
     double a;
     double N;
@@ -17,6 +17,12 @@ typedef struct ZigZagGrid
     double Gw;
     double T;
     void(*progressCallBack)(int percentageCompletedSoFar);
+
+    double Tw;   //Used for rendering
+    double Tww;  //Used for rendering
+    double Tiw;  //Used for rendering
+    double Tih;  //Used for rendering
+
 
 } ZigZagGrid;
 
